@@ -7,5 +7,24 @@
     </head>
     <body>
         <h1>Neural Network Model</h1>
+        <script>
+            async function testPost() {
+                const testNum1 = 5;
+                const testNum2 = 10;
+
+                const data = { testNum1, testNum2 };
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                };
+                const response = await fetch('/api', options);
+                const json = await response.json();
+                console.log(json);
+            }
+            testPost();
+        </script>
     </body>
 </html>
