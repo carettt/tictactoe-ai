@@ -2,3 +2,5 @@ node_modules/
 .prettierrc
 list.txt
 test*.*
+brain.json
+__pycache__/
