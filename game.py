@@ -4,9 +4,9 @@ board = [0, 1, 2,
 
 def displayBoard():
     print(board[0], '|', board[1], '|', board[2])
-    print("----------")
+    print('----------')
     print(board[3], '|', board[4], '|', board[5])
-    print("----------")
+    print('----------')
     print(board[6], '|', board[7], '|', board[8])
 
 displayBoard()
