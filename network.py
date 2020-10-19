@@ -5,6 +5,7 @@ import math
 class Network:
     def __init__(self):
         try:
+            #look for brain.json file for neurons, weights, and outputs and if not found new one is created
             with open('brain.json') as f:
                 brain = json.load(f)
                 self.neurons = brain["neurons"]
@@ -13,6 +14,7 @@ class Network:
         except Exception:
             print('No existing brain found...creating new brain')
             with open('brain.json', 'w') as f:
+                #144 different randomly generated weights between -1 and 1
                 generatedWeights = 2 * np.random.random_sample([16, 9]) - 1
                 self.weights = generatedWeights.tolist()
                 self.neurons = 16
@@ -27,13 +29,16 @@ class Network:
 
     def think(self, inputs):
         x = 0.0
+        #add all inputs multiplied by weights (weighted sum of inputs)
         for i in range(0, self.neurons):
             x = 0.0
             for j in range(0, 9):
                 x += inputs[j] * self.weights[i][j]
+            #put outputs through tanh (sigmoid) to get outputs between 0 and 1
             self.outputs[i] = math.tanh(x)
     
     def output(self):
+        #if any neuron is activated (output greater than 0.5 or less than -0.5) return match won and winner
         for j in range(0, self.neurons):
             if self.outputs[j] > 0.5:
                 return [True, 'x']
@@ -42,4 +47,3 @@ class Network:
             else:
                 return [False, None]
                 
-            

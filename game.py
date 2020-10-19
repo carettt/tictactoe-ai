@@ -6,6 +6,7 @@ board = [0, 1, 2,
 win = False
 
 def displayBoard():
+    #display board neatly on command line
     print(board[0], '|', board[1], '|', board[2])
     print('----------')
     print(board[3], '|', board[4], '|', board[5])
@@ -13,6 +14,7 @@ def displayBoard():
     print(board[6], '|', board[7], '|', board[8])
 
 def convertToInputs():
+    #convert board in current state into inputs
     inputs = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     for i in range(0, len(board)):
         if board[i] == 'x':
@@ -25,6 +27,7 @@ def convertToInputs():
 
 
 displayBoard()
+#initialize network
 neuralNetwork = network.Network()
 
 while win == False:
@@ -49,8 +52,11 @@ while win == False:
         print('Wrong input')
     displayBoard()
     inputs = convertToInputs()
+    #process inputs
     neuralNetwork.think(inputs)
+    #retrieve output
     output = neuralNetwork.output()
+    #if network returns a win, say player who won, else keep going
     if output[0]:
         print(output[1], 'won!')
         win = True
