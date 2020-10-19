@@ -1,6 +1,7 @@
 board = [0, 1, 2,
          3, 4, 5,
          6, 7, 8]
+win = False
 
 def displayBoard():
     print(board[0], '|', board[1], '|', board[2])
@@ -11,7 +12,7 @@ def displayBoard():
 
 displayBoard()
 
-while True:
+while win == False:
     try:
         print('Pick a spot on the board: ')
         spot = int(input())
