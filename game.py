@@ -41,6 +41,14 @@ while win == False:
     except Exception as e:
         print('Wrong input')
     displayBoard()
+    inputs = convertToInputs()
+    #take in inputs and spit out outputs
+    output = neuralNetwork.think(inputs)
+    #if network returns a win, say player who won, else keep going
+    if output[0]:
+        print(output[1], 'won!')
+        win = True
+        break
     try:
         print('Player 2 pick a spot on the board: ')
         spot = int(input())
@@ -52,10 +60,8 @@ while win == False:
         print('Wrong input')
     displayBoard()
     inputs = convertToInputs()
-    #process inputs
-    neuralNetwork.think(inputs)
-    #retrieve output
-    output = neuralNetwork.output()
+    #take in inputs and spit out outputs
+    output = neuralNetwork.think(inputs)
     #if network returns a win, say player who won, else keep going
     if output[0]:
         print(output[1], 'won!')

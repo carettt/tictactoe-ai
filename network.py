@@ -11,6 +11,7 @@ class Network:
                 self.neurons = brain["neurons"]
                 self.weights = brain["weights"]
                 self.outputs = brain["outputs"]
+                self.training_inputs = brain["training_inputs"]
         except Exception:
             print('No existing brain found...creating new brain')
             with open('brain.json', 'w') as f:
@@ -19,10 +20,31 @@ class Network:
                 self.weights = generatedWeights.tolist()
                 self.neurons = 16
                 self.outputs = [[0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0]]
+                self.training_inputs = [[0, 0, -1, 1, 1, 1, -1, 0, -1],
+                                        [-1, 1, 1, -1, 0, 0, 1, -1, 0],
+                                        [1, -1, 1, -1, -1, 0, 0, 1, 0],
+                                        [-1, -1, 1, 0, 1, 1, 0, -1, 0],
+                                        [0, 1, 0, -1, -1, -1, 0, 1, 1],
+                                        [1, -1, 0, 0, -1, 0, 1, 1, -1],
+                                        [1, 1, 0, -1, -1, 1, 0, -1, 0],
+                                        [0, 1, -1, -1, 0, 1, 0, 1, -1],
+                                        [1, -1, -1, -1, 0, 0, 1, 0, 1],
+                                        [0, 1, -1, 0, 0, -1, 1, 1, -1],
+                                        [0, 1, 0, -1, 0, 1, -1, -1, 1],
+                                        [-1, 1, 0, -1, 1, 0, -1, 0, 1],
+                                        [0, -1, 1, 0, -1, 1, 1, 0, -1],
+                                        [0, -1, 0, 1, 0, 1, 1, -1, -1],
+                                        [1, 1, -1, 0, 0, 1, -1, 0, -1],
+                                        [1, 1, 1, 0, -1, -1, 0, -1, 0],
+                                        [-1, 1, -1, 0, 0, 1, 0, -1, 1],
+                                        [0, -1, 0, 1, -1, 1, 0, 1, -1]]
+                self.training_outputs = [1,0,1,0,-1,0,0,0,0,-1,0,-1,0,0,0,1,0,0]
                 brain = {
                     "neurons": self.neurons,
                     "weights": self.weights,
-                    "outputs": self.outputs
+                    "outputs": self.outputs,
+                    "training_inputs": self.training_inputs,
+                    "training_outputs": self.training_outputs
                 }
                 json.dump(brain, f)
         # print(self.weights)
@@ -36,14 +58,11 @@ class Network:
                 x += inputs[j] * self.weights[i][j]
             #put outputs through tanh (sigmoid) to get outputs between 0 and 1
             self.outputs[i] = math.tanh(x)
-    
-    def output(self):
         #if any neuron is activated (output greater than 0.5 or less than -0.5) return match won and winner
         for j in range(0, self.neurons):
             if self.outputs[j] > 0.5:
-                return [True, 'x']
+                return [True, 'x', self.outputs[j]]
             elif self.outputs[j] < -0.5:
-                return [True, 'o']
+                return [True, 'o', self.outputs[j]]
             else:
-                return [False, None]
-                
+                return [False, None, self.outputs[j]]
