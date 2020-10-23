@@ -1,5 +1,5 @@
 node_modules/
 .prettierrc
 test*.*
-brain.json
+brains/
 __pycache__/
