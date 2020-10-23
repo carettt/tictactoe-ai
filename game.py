@@ -1,5 +1,3 @@
-import network
-
 board = [0, 1, 2,
          3, 4, 5,
          6, 7, 8]
@@ -13,22 +11,7 @@ def displayBoard():
     print('----------')
     print(board[6], '|', board[7], '|', board[8])
 
-def convertToInputs():
-    #convert board in current state into inputs
-    inputs = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    for i in range(0, len(board)):
-        if board[i] == 'x':
-            inputs[i] = 1.0
-        elif board[i] == 'o':
-            inputs[i] = -1.0
-        else:
-            inputs[i] = 0.0
-    return inputs
-
-
 displayBoard()
-#initialize network
-neuralNetwork = network.Network()
 
 while win == False:
     try:
@@ -41,14 +24,6 @@ while win == False:
     except Exception as e:
         print('Wrong input')
     displayBoard()
-    inputs = convertToInputs()
-    #take in inputs and spit out outputs
-    output = neuralNetwork.think(inputs)
-    #if network returns a win, say player who won, else keep going
-    if output[0]:
-        print(output[1], 'won!')
-        win = True
-        break
     try:
         print('Player 2 pick a spot on the board: ')
         spot = int(input())
@@ -59,10 +34,3 @@ while win == False:
     except Exception as e:
         print('Wrong input')
     displayBoard()
-    inputs = convertToInputs()
-    #take in inputs and spit out outputs
-    output = neuralNetwork.think(inputs)
-    #if network returns a win, say player who won, else keep going
-    if output[0]:
-        print(output[1], 'won!')
-        win = True
