@@ -11,6 +11,8 @@ const winStates = [
 let board = ['', '', '', '', '', '', '', '', ''];
 let turn = 'X';
 
+let socket;
+
 function setup() {
     createCanvas(600, 600);
     // frameRate(1);
@@ -42,6 +44,15 @@ function setup() {
     };
     // Hide method from for-in loops
     Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
+
+    // set socket variable
+    socket = io.connect('http://localhost:3000');
+
+    // recieve data from server (other clients updating)
+    socket.on('board', (data) => {
+        console.log('test');
+        updateTurn(data.spot);
+    });
 }
 
 function draw() {
@@ -112,6 +123,7 @@ function updateTurn(spot) {
         setO(spot);
         turn = 'X';
     }
+
     //check winner
     let winner = whoWon();
     if (winner != null) {
@@ -128,25 +140,42 @@ function mouseClicked() {
     fill(0);
     circle(mouseX, mouseY, 5);
     console.log(mouseX, mouseY);
+    let spot;
     // update certain board spots depending on mouseX and mouseY
     if (mouseX > 50 && mouseX < 200 && mouseY > 50 && mouseY < 200) {
-        updateTurn(0);
+        spot = 0;
+        updateTurn(spot);
     } else if (mouseX > 200 && mouseX < 400 && mouseY > 50 && mouseY < 200) {
-        updateTurn(1);
+        spot = 1;
+        updateTurn(spot);
     } else if (mouseX > 400 && mouseX < 550 && mouseY > 50 && mouseY < 200) {
-        updateTurn(2);
+        spot = 2;
+        updateTurn(spot);
     } else if (mouseX > 50 && mouseX < 200 && mouseY > 200 && mouseY < 400) {
-        updateTurn(3);
+        spot = 3;
+        updateTurn(spot);
     } else if (mouseX > 200 && mouseX < 400 && mouseY > 200 && mouseY < 400) {
-        updateTurn(4);
+        spot = 4;
+        updateTurn(spot);
     } else if (mouseX > 400 && mouseX < 550 && mouseY > 200 && mouseY < 400) {
-        updateTurn(5);
+        spot = 5;
+        updateTurn(spot);
     } else if (mouseX > 50 && mouseX < 200 && mouseY > 400 && mouseY < 550) {
-        updateTurn(6);
+        spot = 6;
+        updateTurn(spot);
     } else if (mouseX > 200 && mouseX < 400 && mouseY > 400 && mouseY < 550) {
-        updateTurn(7);
+        spot = 7;
+        updateTurn(spot);
     } else if (mouseX > 400 && mouseX < 550 && mouseY > 400 && mouseY < 550) {
-        updateTurn(8);
+        spot = 8;
+        updateTurn(spot);
     }
+
+    // send data to server via websocket
+    let data = {
+        spot: spot
+    };
+    socket.emit('board', data);
+
     fill(255);
 }

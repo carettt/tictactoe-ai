@@ -8,6 +8,12 @@ let server = app.listen(3000, () => {
 
 app.use(express.static('public'));
 
-// let io = socket(server);
+let io = socket(server);
 
-// io.sockets.on('connection', (socket) => console.log(socket));
+io.sockets.on('connection', (socket) => {
+    console.log('New connection:', socket.id);
+    socket.on('board', (data) => {
+        socket.broadcast.emit('board', data);
+        console.log(data);
+    });
+});
