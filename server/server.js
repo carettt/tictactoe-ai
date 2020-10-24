@@ -2,7 +2,10 @@ const express = require('express');
 const socket = require('socket.io');
 const app = express();
 
-let server = app.listen(process.env.PORT || 3000, () => {
+let server = app.listen(process.env.PORT || 3000, (req, res) => {
+    res.header(
+        "Content-Security-Policy: default-src *; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' stackexchange.com"
+    );
     console.log('Socket server running...');
 });
 
