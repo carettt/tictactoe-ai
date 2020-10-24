@@ -2,9 +2,9 @@
     "name": "tictactoe-ai",
     "version": "1.0.0",
     "description": "Tic-tac-toe AI that detects tic-tac-toe wins and plays against human opponent",
-    "main": "server.js",
+    "main": "server/server.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "node server/server.js"
     },
     "repository": {
         "type": "git",
