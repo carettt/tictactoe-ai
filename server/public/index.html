@@ -1,35 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Model</title>
-    </head>
-    <body>
-        <h1>Neural Network Model</h1>
-        <script>
-            async function testPost() {
-                //declare data to send
-                const testNum1 = 5;
-                const testNum2 = 10;
-
-                //add data in object
-                const data = { testNum1, testNum2 };
-                //set options
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                };
-                //send post request
-                const response = await fetch('/api', options);
-                const json = await response.json();
-                //log response
-                console.log(json);
+        <title>p5.js example</title>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
             }
-            testPost();
-        </script>
+        </style>
+        <script src="libraries/p5.min.js"></script>
+        <script src="/addons/p5.sound.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script src="sketch.js"></script>
+    </head>
+
+    <body>
+        <main></main>
     </body>
 </html>
