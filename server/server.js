@@ -2,14 +2,11 @@ const express = require('express');
 const socket = require('socket.io');
 const app = express();
 
-let server = app.listen(process.env.PORT || 3000, (req, res) => {
-    res.header(
-        "Content-Security-Policy: default-src *; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' stackexchange.com"
-    );
+let server = app.listen(3000, () => {
     console.log('Socket server running...');
 });
 
-app.use(express.static('public'));
+app.use(express.static('server/public'));
 
 let io = socket(server);
 
