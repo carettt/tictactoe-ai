@@ -7,7 +7,9 @@ let server = app.listen(port, () => {
     console.log('Socket server running...');
 });
 
-app.use(express.static('server/public'));
+app.use(express.static('server/public'), (res, req) => {
+    req.header('Access-Control-Allow-Origin: http://www.example.com');
+});
 
 let io = socket(server);
 
