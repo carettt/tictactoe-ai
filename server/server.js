@@ -8,7 +8,7 @@ let server = app.listen(port, () => {
 });
 
 app.use(express.static('server/public'), (res, req) => {
-    req.header('Access-Control-Allow-Origin: http://localhost:3000/socket.io/');
+    req.header('Access-Control-Allow-Origin: http://127.0.0.1:3000/');
 });
 
 let io = socket(server);
