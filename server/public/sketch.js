@@ -46,7 +46,7 @@ function setup() {
     Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
 
     // set socket variable
-    socket = io.connect('http://localhost:3000');
+    socket = io.connect('http://127.0.0.1:3000');
 
     // recieve data from server (other clients updating)
     socket.on('board', (data) => {
