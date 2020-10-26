@@ -45,8 +45,19 @@ function setup() {
     // Hide method from for-in loops
     Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
 
-    // set socket variable
-    socket = io.connect('http://127.0.0.1:3000');
+    //set socketOptions
+    let socketOptions = {
+        secure: true,
+        reconnection: true,
+        reconnectionDelay: 1000,
+        timeout: 15000,
+        pingTimeout: 15000,
+        pingInterval: 45000,
+        transports: ['websocket']
+    };
+
+    // connect to server with socketOptions
+    socket = io.connect('tictactoe-ml.herokuapp.com', socketOptions);
 
     // recieve data from server (other clients updating)
     socket.on('board', (data) => {
